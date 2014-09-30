@@ -26,18 +26,6 @@ func ToInterface(v interface{}) []interface{} {
 	// var news []*news_items.NewsItem
 	var res []interface{}
 	switch t := v.(type) {
-	case *news_items.NewsItem:
-		// news = make([]*news_items.NewsItem, 1)
-		// news[0] = v.(*news_items.NewsItem)
-		res = make([]interface{}, 1)
-		res[0] = v.(*news_items.NewsItem)
-		return res
-	case *[]news_items.NewsItem:
-		arr := *(v.(*[]news_items.NewsItem))
-		res = make([]interface{}, len(arr))
-		for i, j := range arr {
-			res[i] = j
-		}
 	default:
 		panic(fmt.Sprintf("unexpected type %T", t))
 
