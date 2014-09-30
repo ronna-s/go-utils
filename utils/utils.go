@@ -22,15 +22,17 @@ func MapFunc(name string, arr ...interface{}) []interface{} {
 	}
 	return res
 }
+func ToInterface(v interface{}) (res []interface{}) {
+        switch reflect.TypeOf(v).Kind() {
+        case reflect.Slice:
+                s := reflect.ValueOf(v)
+                res = make([]interface{}, s.Len())
+                for i := 0; i < s.Len(); i++ {
+                        res[i] = s.Index(i).Interface()
+                }
+        default:
+                panic(fmt.Sprintf("unexpected type %T", reflect.TypeOf(v).Kind()))
 
-func ToInterface(v interface{}) []interface{} {
-	// var news []*news_items.NewsItem
-	var res []interface{}
-	switch t := v.(type) {
-	default:
-		panic(fmt.Sprintf("unexpected type %T", t))
-
-	}
+        }
 	return res
 }
-
