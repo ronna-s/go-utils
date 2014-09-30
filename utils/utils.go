@@ -22,7 +22,9 @@ func MapFunc(name string, arr ...interface{}) []interface{} {
 	}
 	return res
 }
-func ToInterface(v interface{}) (res []interface{}) {
+
+
+func ToInterfaceArray(v interface{}) (res []interface{}) {
         switch reflect.TypeOf(v).Kind() {
         case reflect.Slice:
                 s := reflect.ValueOf(v)
@@ -31,8 +33,16 @@ func ToInterface(v interface{}) (res []interface{}) {
                         res[i] = s.Index(i).Interface()
                 }
         default:
-                panic(fmt.Sprintf("unexpected type %T", reflect.TypeOf(v).Kind()))
-
+                panic(fmt.Sprintf("unexpected type %T", v))
         }
-	return res
+        return res
+}
+
+func Included(arr interface{}, i interface{}) bool {
+        for _, item := range ToInterfaceArray(arr){
+                if item == i {
+                        return true
+                }
+        }
+	return false
 }
